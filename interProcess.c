@@ -39,7 +39,7 @@ int main(int cargs, char ** vargs)
         int pid = getpid();
         printf ("First child:PID=%d, PPID=%d\n", pid ,getppid());
 
-        fileDescriptor = openFile("interProcess.c", O_RDONLY);
+        fileDescriptor = openFile("CMakeLists.txt", O_RDONLY);
 
         while((n = read(fileDescriptor, buff, BUFFER_SIZE)) > 0) {
             write(pipeDescriptors[1], buff, n);
