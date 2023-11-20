@@ -13,7 +13,7 @@ int main(int cargs, char ** vargs)
         int pid = getpid();
         printf ("First child:PID=%d, PPID=%d\n", pid ,getppid());
 
-        sleep(15);
+        sleep(25);
         exit(0);
     }
 
@@ -24,7 +24,7 @@ int main(int cargs, char ** vargs)
         int pid = getpid();
         printf ("Second child:PID=%d, PPID=%d\n", pid ,getppid());
 
-        sleep(10);
+        sleep(15);
         exit(0);
     }
 
