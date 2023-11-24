@@ -24,7 +24,9 @@ int main(int cargs, char ** vargs)
     signal(SIGINT, sigintHandler);
 
     int firstChildPID, secondChildPID;
-    int fileDescriptor, n, pipeDescriptors[2], err;
+    FILE *file;
+    unsigned long n;
+    int pipeDescriptors[2], err, fileDescriptor;
     char buff[BUFFER_SIZE];
 
     if ((err = pipe(pipeDescriptors) < 0)) {
@@ -39,14 +41,14 @@ int main(int cargs, char ** vargs)
         int pid = getpid();
         printf ("First child:PID=%d, PPID=%d\n", pid ,getppid());
 
-        fileDescriptor = openFile("CMakeLists.txt", O_RDONLY);
+        file = fopen("CMakeLists.txt", "r");
 
-        while((n = read(fileDescriptor, buff, BUFFER_SIZE)) > 0) {
+        while((n = fread(buff, 1, BUFFER_SIZE, file)) > 0) {
             write(pipeDescriptors[1], buff, n);
         }
 
         closePipeDescriptors(pipeDescriptors);
-        close(fileDescriptor);
+        fclose(file);
 
         printf ("First child close!\n");
 
